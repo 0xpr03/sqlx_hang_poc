@@ -174,14 +174,14 @@ impl DatabaseGuard {
 impl Drop for DatabaseGuard {
     fn drop(&mut self) {
         // TODO: fixme, doesn't actually work, blocking will result in a deadlock
-        let db = self.db.clone();
-        let name = self.db_name.clone();
-        spawn(async move {
-            sqlx::query(format!("DROP DATABASE IF EXISTS `{}`", name).as_str())
-                .execute(&mut *db.begin().await.unwrap())
-                .await
-                .unwrap();
-            println!("Dropped");
-        });
+        // let db = self.db.clone();
+        // let name = self.db_name.clone();
+        // spawn(async move {
+        //     sqlx::query(format!("DROP DATABASE IF EXISTS `{}`", name).as_str())
+        //         .execute(&mut *db.begin().await.unwrap())
+        //         .await
+        //         .unwrap();
+        //     println!("Dropped");
+        // });
     }
 }
