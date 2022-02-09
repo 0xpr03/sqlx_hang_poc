@@ -123,7 +123,7 @@ impl DatabaseGuard {
         // hack to avoid problems with URI/ENV connections that already select a database
         // which prevents us from doing so via MySqlConnectOptions
         let conn_db_switch = format!("use `{}`", db_name);
-        let opts = MySqlPoolOptions::new().after_connect(move |conn| {
+        let opts = MySqlPoolOptions::new().max_connections(10).after_connect(move |conn| {
             let c = conn_db_switch.clone();
             Box::pin(async move {
                 conn.execute(
